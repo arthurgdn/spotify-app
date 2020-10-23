@@ -3,6 +3,7 @@ import React from 'react'
 import HomePage from '../components/HomePage'
 import {createBrowserHistory} from "history"
 import NotFoundPage from '../components/NotFoundPage'
+import ProtectedPage from '../components/ProtectedPage'
 import {Router,Switch,Route} from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
@@ -13,7 +14,7 @@ const AppRouter = ()=>(
             
             <Switch>
                 <PublicRoute path='/' component={HomePage} exact={true}/>
-                
+                <PrivateRoute path='/home' component={ProtectedPage} exact={true}/>
                 <Route component={NotFoundPage}/>
             </Switch>
         </div>

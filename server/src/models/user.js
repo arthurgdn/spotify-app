@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const Token = require('./token')
 
 
 //Schéma définissant un utilisateur
@@ -43,12 +44,6 @@ const userSchema = new mongoose.Schema({
         type: Buffer,
         required : false
     },
-    tokens : [{
-        token : {
-            type : String,
-            required : true
-        }
-    }]
 },{
     timestamps : true
 })
@@ -70,10 +65,16 @@ userSchema.statics.findByCredentials = async (email,password)=>{
 //Méthode pour générer un token d'authentification
 userSchema.methods.generateAuthToken = async function (){
     const user = this
-    const token = jwt.sign({ _id: user._id.toString()},process.env.JWT_SECRET)
-    user.tokens = user.tokens.concat({token})
-    await user.save()
+    const token = jwt.sign({ _id: user._id.toString()},process.env.JWT_SECRET,{expiresIn:900})
     return token
+}
+
+userSchema.methods.generateRefreshToken = async function (){
+    const user = this
+    const refreshToken = jwt.sign({_id:user._id},process.env.JWT_REFRESH_SECRET,{expiresIn:86400})
+    await new Token({ token: refreshToken }).save()
+    
+    return refreshToken
 }
 
 //On minimise la taille des données à renvoyer et on supprime les informations sensibles
@@ -81,7 +82,6 @@ userSchema.methods.toJSON = function (){
     const user = this
     const userObject = user.toObject()
     delete userObject.password
-    delete userObject.tokens
     delete userObject.email
     delete userObject.profilePicture
 

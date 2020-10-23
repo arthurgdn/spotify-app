@@ -3,9 +3,11 @@ const multer = require('multer')
 const path = require('path')
 const sharp = require('sharp')
 const bcrypt = require('bcryptjs')
+const jwt= require('jsonwebtoken')
 const auth = require('../middleware/auth')
 
 const User = require('../models/user')
+const Token = require('../models/token')
 
 
 const router = new express.Router()
@@ -18,9 +20,10 @@ router.post('/users', async (req, res) => {
     const user = new User({...req.body})
     try{
         const token = await user.generateAuthToken()
+        const refreshToken = await user.generateRefreshToken()
         await user.save()
         
-        res.status(201).send({user:user.toJSON(),token})
+        res.status(201).send({user:user.toJSON(),token,refreshToken})
     }catch(e){
         
         res.status(400).send(e)
@@ -36,13 +39,41 @@ router.get('/users/me',auth,async (req,res)=>{
     }
     
 })
-
+router.post('/token',async (req,res)=>{
+    try {
+        //get refreshToken
+        const { refreshToken } = req.body;
+        //send error if no refreshToken is sent
+        if (!refreshToken) {
+          return res.status(403).json({ error: "Access denied,token missing!" });
+        } else {
+          //query for the token to check if it is valid:
+          const tokenDoc = await Token.findOne({ token: refreshToken });
+          //send error if no token found:
+          if (!tokenDoc) {
+            return res.status(401).json({ error: "Token expired!" });
+          } else {
+            //extract payload from refresh token and generate a new access token and send it
+            const payload = jwt.verify(tokenDoc.token, process.env.JWT_REFRESH_SECRET);
+            const accessToken = jwt.sign({ _id: payload }, process.env.JWT_SECRET, {
+              expiresIn: "10m",
+            });
+            return res.status(200).json({ token :accessToken });
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Internal Server Error!" });
+      }
+})
 //API to login
 router.post('/users/login',async (req,res)=>{
     try{
+        
         const user = await User.findByCredentials(req.body.email,req.body.password)
         const token = await user.generateAuthToken()
-        res.send({user:user.toJSON(),token})
+        const refreshToken = await user.generateRefreshToken()
+        res.send({user:user.toJSON(),token,refreshToken})
     }catch(e){
         
         res.status(400).send(e)
