@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
-import {FaKey} from 'react-icons/fa'
+import {connect} from 'react-redux'
+import {FaKey,FaCheck} from 'react-icons/fa'
+import { setUser, startSetUser } from '../actions/user'
 
-const SearchField = ()=>{
-    const [spotifyApiKey,setSpotifyApiKey]=useState('')
+const SearchField = ({localStateApiKey,startSetUser})=>{
+    const [spotifyApiKey,setSpotifyApiKey]=useState(localStateApiKey)
 
+    const handleApiKeyChange = ()=>{
+        startSetUser(spotifyApiKey)
+    }
     return (
         <div className="search-field__container">
             <FaKey/>
@@ -13,8 +18,17 @@ const SearchField = ()=>{
                 placeholder="Clé d'API Spotify"
                 className="search-field__input"
             />
+            <div onClick={handleApiKeyChange} className="search-field__button"><FaCheck/></div>
         </div>
     )
 }
 
-export default SearchField
+
+const mapStateToProps= (state)=>({
+    localStateApiKey: state.user.apiKey
+})
+
+const mapDispatchToProps = (dispatch)=>({
+    startSetUser: (apiKey)=>dispatch(startSetUser(apiKey))
+})
+export default connect(mapStateToProps,mapDispatchToProps)(SearchField)

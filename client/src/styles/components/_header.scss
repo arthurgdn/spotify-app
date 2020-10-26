@@ -17,11 +17,21 @@
 .search-field__container{
     background-color: white;
     border-radius: 20px;
-    width:auto;
-    padding-left:$xs-size;
+    width:400px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    padding:0 $xs-size;
 }
 
 .search-field__input{
     border:none;
     margin:$s-size;
+    width:100%;
+}
+
+.search-field__button{
+    &:hover{
+        cursor:pointer;
+    }
 }
