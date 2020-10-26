@@ -1,0 +1,27 @@
+.header__container{
+    background-color: $beautiful-black;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+}
+
+.header__title{
+    font-size: $font-size-xlarge;
+    color: $beautiful-green;
+    margin:$m-size;
+    font-weight: 900;
+}
+
+.search-field__container{
+    background-color: white;
+    border-radius: 20px;
+    width:auto;
+    padding-left:$xs-size;
+}
+
+.search-field__input{
+    border:none;
+    margin:$s-size;
+}
