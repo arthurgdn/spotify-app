@@ -4,7 +4,7 @@ import {FaKey,FaCheck} from 'react-icons/fa'
 import { setUser, startSetUser } from '../actions/user'
 
 const SearchField = ({localStateApiKey,startSetUser})=>{
-    const [spotifyApiKey,setSpotifyApiKey]=useState(localStateApiKey)
+    const [spotifyApiKey,setSpotifyApiKey]=useState(localStorage.getItem('apiKey'))
 
     const handleApiKeyChange = ()=>{
         startSetUser(spotifyApiKey)
