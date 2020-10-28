@@ -4,3 +4,13 @@
     padding: 0 $m-size;
     
 }
+
+.column-display{
+    display:flex;
+    flex-direction:row;
+}
+
+.playlist-container{
+    margin: $s-size auto;
+    
+}

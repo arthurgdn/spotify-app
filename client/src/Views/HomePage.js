@@ -1,18 +1,19 @@
 import React from 'react'
 import Header from '../Components/Header'
 import TabNavigation from '../Components/TabNavigation'
+
 import ArtistView from './ArtistView'
 import TitleView from './TitleView'
-import DashboardView from './DashboardView'
+import PlaylistView from './PlaylistView'
 import RecentView from './RecentView'
 
 export default ()=>{
 
     const childComponents = [
         {
-            title:"Général",
+            title:"Joués récemment",
             index:0,
-            component:(<DashboardView/>)
+            component:(<RecentView/>)
         },{
             title:"Mes Artistes",
             index:1,
@@ -24,9 +25,9 @@ export default ()=>{
             component:(<TitleView/>)
         },
         {
-            title:"Joués récemment",
+            title:"Mes playlists",
             index:3,
-            component:(<RecentView/>)
+            component:(<PlaylistView/>)
         }
     ]
     return (

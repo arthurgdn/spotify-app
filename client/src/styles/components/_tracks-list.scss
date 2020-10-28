@@ -4,6 +4,42 @@
     padding:0 auto;
 }
 
+.tracks-list__playlist-container{
+    display:flex;
+    flex-direction: column;
+}
+
+.tracks-list__playlist-element{
+    margin:0 auto;
+    padding: $s-size auto;
+    color:white;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid white;
+    width:500px;
+    
+    &:hover{
+        cursor:pointer;
+        p{
+            color:$beautiful-green;
+        }
+    }
+    img{
+        width: 60px;
+        height: 60px;
+    }
+    
+    p{
+        font-weight: 600;
+        font-size: $font-size-large;
+        margin:$s-size;
+        color:white;
+        word-wrap: break-word;
+        transition: color .3s ease;
+    }
+}
+
 .tracks-list__element{
     margin:0 auto;
     width:320px;
@@ -45,5 +81,36 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.playlist__element{
+    margin:0 auto;
+    width:100%;
+    color:white;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: space-evenly;
+    border-bottom: 1px solid white;
+    
+    img{
+        height:40px;
+        width:40px;
+    }
+    p{
+        font-weight: 600;
+        font-size: $font-size-large;
+        margin:0;
+        width: 200px;
+        word-wrap: break-word;
+    }
+    span{
+        color: lighten($beautiful-black,40);
+        font-weight:450;
+        margin:0;
+        width:200px;
+        word-wrap: break-word;
+    }
 }
 
