@@ -29,7 +29,10 @@ export default ()=>{
         <div>
             {loading?(<p className="tracks-list__loading">Chargement en cours ...</p>):(
                 <div className="tracks-list__container">
-                    <DateRangeFilter handleChange={handleDateRangeChange}/>
+                    <div className="tracks-list__header">
+                        <h1 className="tab-content__title">Artistes les plus écoutés </h1>
+                        <DateRangeFilter handleChange={handleDateRangeChange}/>
+                    </div>    
                     {error &&(<p>{error}</p>)}
                     <div className="tracks-list__lign-container">{favouriteArtists.slice(0,4).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
                     <div className="tracks-list__lign-container">{favouriteArtists.slice(4,8).map((artist)=>(<ArtistElement artist={artist}/>))}</div>

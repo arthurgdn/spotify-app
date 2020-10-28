@@ -39,3 +39,11 @@
     font-weight: 600;
     font-size: $font-size-large;
 }
+
+.tracks-list__header{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+

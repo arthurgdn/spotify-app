@@ -8,7 +8,7 @@ export default ()=>{
         
     return (
         <div>
-            <h1 className="tab-content__title">Artistes les plus écoutés </h1>
+            
             <FavouriteArtists/>
         </div>
     )
