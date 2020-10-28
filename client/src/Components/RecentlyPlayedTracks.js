@@ -18,6 +18,7 @@ export default connect(mapStateToProps)(({apiKey})=>{
             (res)=>{
                 setRecentlyPlayedTracks(res.data.items)
                 setLoading(false)
+                setError('')
             }).catch((e)=>{
                 setError('Impossible de charger les titres récemment joués')
                 setLoading(false)

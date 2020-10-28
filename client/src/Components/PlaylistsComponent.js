@@ -19,6 +19,7 @@ export default connect(mapStateToProps)(({apiKey,handlePlaylistSelected})=>{
             (res)=>{
                 setPlaylists(res.data.items)
                 setLoading(false)
+                setError('')
             }).catch((e)=>{
                 setError('Impossible de charger les playlists écoutées récemment')
                 setLoading(false)

@@ -21,6 +21,7 @@ export default connect(mapStateToProps)(({apiKey})=>{
             (res)=>{
                 setFavouriteArtists(res.data.items)
                 setLoading(false)
+                setError('')
             }).catch((e)=>{
                 setError('Impossible de charger les artistes préféres')
                 setLoading(false)

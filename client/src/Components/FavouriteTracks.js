@@ -21,6 +21,7 @@ export default connect(mapStateToProps)(({apiKey})=>{
             (res)=>{
                 setFavouriteTracks(res.data.items.map((item)=>({track:{...item}})))
                 setLoading(false)
+                setError('')
             }).catch((e)=>{
                 setError('Impossible de charger les titres préféres')
                 setLoading(false)
