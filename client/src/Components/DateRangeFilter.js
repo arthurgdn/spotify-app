@@ -8,7 +8,7 @@ const customStyles = {
       backgroundColor: '#1db954',
       color:'white',
       fontWeight:'600',
-      borderBottom:'2px solid #333333',
+      borderBottom:'2px solid white',
       "&:hover":{cursor:'pointer'}
       
       
@@ -32,7 +32,9 @@ const customStyles = {
     }),
     menuList: (provided)=>({
         ...provided,
-        border:'2px solid #333333',
+        border:'2px solid white',
+        borderBottom:'none',
+        borderRadius:'5px',
         padding:0
     })
   }

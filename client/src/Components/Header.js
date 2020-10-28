@@ -5,7 +5,7 @@ import SearchField from './SearchField'
 
 const Header =  ({name})=>(
     <div className="header__container">
-        <h1 className="header__title">Spotify Stats App</h1>
+        <h1 className="header__title">Spotify App</h1>
         <SearchField/>
         <h1 className="header__title">{name &&(<span>Bienvenue {name}</span>)}</h1>
     </div>

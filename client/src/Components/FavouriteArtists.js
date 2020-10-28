@@ -1,10 +1,16 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
-
+import {connect} from 'react-redux'
+ 
 import ArtistElement from '../Components/ArtistElement'
 import DateRangeFilter from './DateRangeFilter'
+import GridDisplay from '../Containers/GridDisplay'
 
-export default ()=>{
+const mapStateToProps = (state)=>({
+    apiKey:state.user.apiKey
+})
+
+export default connect(mapStateToProps)(({apiKey})=>{
     const [favouriteArtists,setFavouriteArtists]=useState([])
     const [dateRangeFilter,setDateRangeFilter]=useState('short_term')
     const [loading,setLoading]=useState(true)
@@ -19,7 +25,7 @@ export default ()=>{
                 setError('Impossible de charger les artistes préféres')
                 setLoading(false)
             })
-    },[dateRangeFilter,setDateRangeFilter])
+    },[dateRangeFilter,setDateRangeFilter,apiKey])
 
     const handleDateRangeChange = (value)=>{
         setDateRangeFilter(value)
@@ -34,21 +40,10 @@ export default ()=>{
                         <DateRangeFilter handleChange={handleDateRangeChange}/>
                     </div>    
                     {error &&(<p>{error}</p>)}
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(0,4).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(4,8).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(8,12).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(12,16).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(16,20).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(20,24).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(24,28).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(28,32).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(32,36).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(36,40).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(40,44).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
-                    <div className="tracks-list__lign-container">{favouriteArtists.slice(44,48).map((artist)=>(<ArtistElement artist={artist}/>))}</div>
+                    <GridDisplay arrayToMap={favouriteArtists} DisplayElement={ArtistElement}/>
 
                 </div>
                 )}
         </div>
     )
-}
+})

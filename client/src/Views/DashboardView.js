@@ -1,13 +1,12 @@
 import React,{useState,useEffect} from 'react'
-import axios from 'axios'
-import RecentlyPlayedTracks from '../Components/RecentlyPlayedTracks'
+
+import PlaylistsComponent from '../Components/PlaylistsComponent'
 
 export default ()=>{
    
     return (
         <div>
-            <h1 className="tab-content__title">Titres joués récemment</h1>
-            <RecentlyPlayedTracks/>
+            <PlaylistsComponent/>
         </div>
     )
 }
